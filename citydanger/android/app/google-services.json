@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "494641898890",
+    "project_id": "citydanger-4985a",
+    "storage_bucket": "citydanger-4985a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494641898890:android:bc04c5e129b38957bf1473",
+        "android_client_info": {
+          "package_name": "com.example.citydanger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494641898890-aivkbu03r61alrs8ek5mif79bcd22cbs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJtm1DeVUkOQPPeYJYFBGi_xmXinngjwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494641898890-aivkbu03r61alrs8ek5mif79bcd22cbs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

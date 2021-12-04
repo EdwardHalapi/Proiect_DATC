@@ -6,7 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TextBoxCustom extends StatelessWidget {
   String textController = "";
-  TextBoxCustom({required this.textController});
+  bool flag;
+  TextBoxCustom({required this.textController,required this.flag});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,6 +16,7 @@ class TextBoxCustom extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
+        obscureText: flag,
         maxLength: 100,
         maxLines: 1,
         keyboardType: TextInputType.multiline,

@@ -18,7 +18,7 @@ class SignUpScreen extends StatelessWidget {
     String firstNameController = '';
     String lastNameController = '';
 
-    return ViewModelBuilder<SignUpViewModel>.nonReactive(
+    return ViewModelBuilder<SignUpViewModel>.reactive(
       viewModelBuilder: () => SignUpViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
@@ -48,42 +48,178 @@ class SignUpScreen extends StatelessWidget {
                 const SizedBox(
                   height: 100,
                 ),
-                Text(
-                  "Introduce the email",
-                  style: GoogleFonts.montserrat(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
+                Container(
+                  padding: const EdgeInsets.only(right: 275),
+                  child: Text(
+                    "Sign Up",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: false,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: "Email",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => emailController = value,
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: emailController),
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: passwordController),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: true,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => passwordController = value,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: confirmPasswordController),
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: firstNameController),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: true,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: "Confirm Password",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => confirmPasswordController = value,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: lastNameController),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: false,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: "First Name",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => firstNameController = value,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: false,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: "Last Name",
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => lastNameController = value,
+                  ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
                 BusyButton(
                   text: "Submit",
                   onTap: () async {
-                    //func;
+                    await model.signUp(emailController, passwordController,
+                        firstNameController, lastNameController);
                   },
                   busy: false,
                 ),

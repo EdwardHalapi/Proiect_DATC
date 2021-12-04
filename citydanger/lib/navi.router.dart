@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import 'screens/home_screen.dart';
+import 'screens/home_screen_admin.dart';
 import 'screens/login_screen.dart';
 import 'screens/login_screen_admin.dart';
 import 'screens/signup_screen.dart';
@@ -18,10 +20,14 @@ class Routes {
   static const String loginScreen = '/';
   static const String signUpScreen = '/sign-up-screen';
   static const String loginAdmin = '/login-admin';
+  static const String homePage = '/home-page';
+  static const String homePageAdmin = '/home-page-admin';
   static const all = <String>{
     loginScreen,
     signUpScreen,
     loginAdmin,
+    homePage,
+    homePageAdmin,
   };
 }
 
@@ -32,6 +38,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginScreen, page: LoginScreen),
     RouteDef(Routes.signUpScreen, page: SignUpScreen),
     RouteDef(Routes.loginAdmin, page: LoginAdmin),
+    RouteDef(Routes.homePage, page: HomePage),
+    RouteDef(Routes.homePageAdmin, page: HomePageAdmin),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -54,6 +62,18 @@ class StackedRouter extends RouterBase {
     LoginAdmin: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const LoginAdmin(),
+        settings: data,
+      );
+    },
+    HomePage: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => HomePage(),
+        settings: data,
+      );
+    },
+    HomePageAdmin: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => HomePageAdmin(),
         settings: data,
       );
     },

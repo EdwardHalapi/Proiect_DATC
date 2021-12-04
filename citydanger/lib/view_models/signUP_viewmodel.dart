@@ -1,18 +1,21 @@
 // ignore_for_file: file_names
 /*=============== Owned packages ===================*/
+import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/base_model.dart';
 /*=============== Extern packages ==================*/
 
 class SignUpViewModel extends BaseModel {
-  Future<void> createUser(String code) async {
-    //   bool checkCreate = await signUpServices.introduceUniqueCode(code);
-    //   if (checkCreate == true) {
-    //     navigationService.navigateTo(Routes.signUpScreenMain);
-    //   }
-    // }
+  Future<void> signUp(
+      String email, String password, String firstname, String lastname) async {
+    bool result = false;
 
-    // Future<void> getRole() async {
-    //   await signUpServices.getUserRole();
-    // }
+    setBusy(true);
+    result = await authService.registerWithEmailAndPassword(
+        email, password, firstname, lastname);
+    setBusy(false);
+
+    if (result == true) {
+      navigationService.navigateTo(Routes.homePage);
+    }
   }
 }

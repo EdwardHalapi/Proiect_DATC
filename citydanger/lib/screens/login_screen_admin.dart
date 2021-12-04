@@ -11,7 +11,7 @@ class LoginAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String codeController = '';
-    return ViewModelBuilder<LoginViewModel>.nonReactive(
+    return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
@@ -81,7 +81,9 @@ class LoginAdmin extends StatelessWidget {
                 ),
                 BusyButton(
                   text: "Submit",
-                  onTap: () async {},
+                  onTap: () async {
+                    await model.loginAdmin(codeController);
+                  },
                   busy: false,
                 ),
                 const SizedBox(

@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     String emailController = '';
     String passwordController = '';
 
-    return ViewModelBuilder<LoginViewModel>.nonReactive(
+    return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
@@ -53,7 +53,30 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: emailController),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: false,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => emailController = value,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -69,14 +92,37 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                TextBoxCustom(textController: passwordController),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 25, right: 25),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TextFormField(
+                    obscureText: true,
+                    maxLength: 100,
+                    maxLines: 1,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      hintStyle: GoogleFonts.montserrat(
+                        fontSize: 15.5,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    onChanged: (value) => passwordController = value,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 BusyButton(
                   text: "Submit",
                   onTap: () async {
-                    // func;
+                    await model.login(emailController, passwordController);
                   },
                   busy: false,
                 ),

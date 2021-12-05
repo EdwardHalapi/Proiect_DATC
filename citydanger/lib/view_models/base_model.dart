@@ -19,7 +19,7 @@ class BaseModel extends BaseViewModel {
   }
 
   String get currentUserUid => getCurrentUser().uid;
-  String get fullName => getCurrentUser().email;
-  String get coverUrl => getCurrentUser().firstName;
-  String get localProfileImagePath => getCurrentUser().lastName;
+  String get email => getCurrentUser().email;
+  String get firstname => getCurrentUser().firstName;
+  String get lasname => getCurrentUser().lastName;
 }

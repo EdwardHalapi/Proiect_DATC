@@ -1,7 +1,8 @@
+/*=============== Owned packages ===================*/
 import 'package:citydanger/locator.dart';
 import 'package:citydanger/services/database.dart';
 import 'package:citydanger/models/user_data_model.dart';
-
+/*=============== Extern packages ==================*/
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:crypto/crypto.dart';
@@ -178,7 +179,7 @@ class AuthService {
     return await firebaseUser.updatePassword(password);
   }
 
-  Future<bool> signInAdmin(String code) async{
+  Future<bool> signInAdmin(String code) async {
     bool flag = false;
     if (code == hashRole("admin")) {
       flag = true;

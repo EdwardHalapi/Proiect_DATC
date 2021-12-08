@@ -1,5 +1,7 @@
+/*=============== Owned packages ===================*/
 import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/home_page_view_model.dart';
+/*=============== Extern packages ==================*/
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';

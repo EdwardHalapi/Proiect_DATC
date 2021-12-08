@@ -1,4 +1,6 @@
+/*=============== Owned packages ===================*/
 import 'package:citydanger/models/user_data_model.dart';
+/*=============== Extern packages ==================*/
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {

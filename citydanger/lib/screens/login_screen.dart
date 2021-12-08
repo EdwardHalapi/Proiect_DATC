@@ -1,8 +1,8 @@
+/*=============== Owned packages ===================*/
 import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/login_viewmodel.dart';
 import 'package:citydanger/widgets/buttons/submit_button.dart';
-import 'package:citydanger/widgets/signup_widgets/text_box.dart';
-
+/*=============== Extern packages ==================*/
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';

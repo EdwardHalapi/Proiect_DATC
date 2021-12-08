@@ -1,19 +1,21 @@
+/*=============== Owned packages ===================*/
 import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/home_page_view_model.dart';
+/*=============== Extern packages ==================*/
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:stacked/stacked.dart';
+import 'package:location/location.dart';
 
 class HomePage extends StatelessWidget {
-  final Completer<GoogleMapController> _controller = Completer();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
+  late GoogleMapController _controller;
+  Location _location = Location();
+
+  HomePage({Key? key}) : super(key: key);
 
   void _openDrawer() {
     _scaffoldKey.currentState!.openDrawer();
@@ -90,16 +92,43 @@ class HomePage extends StatelessWidget {
           ),
         ),
         body: GoogleMap(
-          myLocationEnabled: true,
+          initialCameraPosition: CameraPosition(target: _initialcameraposition),
           mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          myLocationButtonEnabled: true,
-          zoomControlsEnabled: true,
+          onMapCreated: _onMapCreated,
+          myLocationEnabled: true,
+          zoomControlsEnabled: false,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: () {},
+          child: const Icon(
+            Icons.add_location,
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
+
+  void _onMapCreated(GoogleMapController _cntlr) {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen((l) {
+      _controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(l.latitude ?? 0, l.longitude ?? 0), zoom: 15),
+        ),
+      );
+    });
+  }
+  Future<void> showBottomSheetCertification(
+    BuildContext context, Widget bottomSheetCertifications) {
+  return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return bottomSheetCertifications;
+      });
+}
 }

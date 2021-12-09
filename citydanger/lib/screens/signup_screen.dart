@@ -215,12 +215,14 @@ class SignUpScreen extends StatelessWidget {
                   height: 30,
                 ),
                 BusyButton(
-                  text: "Submit",
+                  text: "SignUp",
                   onTap: () async {
-                    await model.signUp(emailController, passwordController,
-                        firstNameController, lastNameController);
+                    if (model.isBusy == false) {
+                      await model.signUp(emailController, passwordController,
+                          firstNameController, lastNameController);
+                    }
                   },
-                  busy: false,
+                  busy: model.isBusy,
                 ),
                 const SizedBox(
                   height: 10,

@@ -7,11 +7,9 @@ import 'package:citydanger/view_models/base_model.dart';
 class LoginViewModel extends BaseModel {
   Future<void> login(String email, String password) async {
     bool result = false;
-
     setBusy(true);
     result = await authService.signIn(email, password);
     setBusy(false);
-
     if (result == true) {
       navigationService.navigateTo(Routes.homePage);
     }

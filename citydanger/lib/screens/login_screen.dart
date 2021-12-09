@@ -120,11 +120,13 @@ class LoginScreen extends StatelessWidget {
                   height: 10,
                 ),
                 BusyButton(
-                  text: "Submit",
+                  text: "LogIn",
                   onTap: () async {
-                    await model.login(emailController, passwordController);
+                    if (model.isBusy == false) {
+                      await model.login(emailController, passwordController);
+                    }
                   },
-                  busy: false,
+                  busy: model.isBusy,
                 ),
                 const SizedBox(
                   height: 10,

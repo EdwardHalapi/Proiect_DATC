@@ -1,6 +1,7 @@
 /*=============== Owned packages ===================*/
 import "package:citydanger/locator.dart";
 import 'package:citydanger/models/user_data_model.dart';
+import 'package:citydanger/services/media_service.dart';
 import 'package:citydanger/services/notification_service.dart';
 import 'package:citydanger/services/auth_service.dart';
 
@@ -13,6 +14,7 @@ class BaseModel extends BaseViewModel {
   final PushNotificationService notificationService =
       locator<PushNotificationService>();
   final AuthService authService = locator<AuthService>();
+  final MediaService mediaService = locator<MediaService>();
 
   UserData getCurrentUser() {
     return authService.currentUser;

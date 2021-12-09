@@ -81,11 +81,13 @@ class LoginAdmin extends StatelessWidget {
                   height: 30,
                 ),
                 BusyButton(
-                  text: "Submit",
+                  text: "LogIn",
                   onTap: () async {
-                    await model.loginAdmin(codeController);
+                    if (model.isBusy == false) {
+                      await model.loginAdmin(codeController);
+                    }
                   },
-                  busy: false,
+                  busy: model.isBusy,
                 ),
                 const SizedBox(
                   height: 10,

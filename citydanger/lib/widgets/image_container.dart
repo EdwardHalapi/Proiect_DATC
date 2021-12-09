@@ -33,16 +33,14 @@ class ImageContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Icon(Icons.camera_enhance, size: 50),
+                    const Icon(Icons.camera_alt, size: 70),
                     Padding(
                       padding: const EdgeInsets.only(top: 14),
                       child: Text(
                         'Add an image',
                         style: GoogleFonts.montserrat(
                           fontSize: 16,
-                          color: Theme.of(context)
-                              .backgroundColor
-                              .withOpacity(0.6),
+                          color: Colors.black,
                         ),
                       ),
                     ),

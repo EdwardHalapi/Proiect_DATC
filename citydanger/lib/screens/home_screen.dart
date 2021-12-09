@@ -15,7 +15,8 @@ class HomePage extends StatelessWidget {
   final LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
   late GoogleMapController _controller;
   final Location _location = Location();
-
+  double? lat;
+  double? longi;
   HomePage({Key? key}) : super(key: key);
 
   void _openDrawer() {
@@ -99,11 +100,18 @@ class HomePage extends StatelessWidget {
           onMapCreated: _onMapCreated,
           myLocationEnabled: true,
           zoomControlsEnabled: false,
+          markers: model.issueMarkers,
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
-            showBottomSheetIssue(context, BottomSheetIssue());
+            showBottomSheetIssue(
+                context,
+                BottomSheetIssue(
+                  lat: lat,
+                  longi: longi,
+                ));
+            model.setMarkers(lat, longi);
           },
           child: const Icon(
             Icons.add_location,
@@ -117,6 +125,8 @@ class HomePage extends StatelessWidget {
   void _onMapCreated(GoogleMapController _cntlr) {
     _controller = _cntlr;
     _location.onLocationChanged.listen((l) {
+      lat = l.latitude ?? 0;
+      longi = l.longitude ?? 0;
       _controller.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(

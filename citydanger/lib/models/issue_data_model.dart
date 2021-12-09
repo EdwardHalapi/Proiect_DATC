@@ -1,24 +1,24 @@
+
 class IssueDataModel {
   String senderUid;
   String description;
   String image;
-  String imageLocalUrl;
   int priority;
   String state;
-  int longitutde;
-  int latitude;
-
+  double longitutde;
+  double latitude;
+  String issueId;
+  
   IssueDataModel(
       {required this.senderUid,
       required this.description,
       required this.image,
-      required this.imageLocalUrl,
       required this.priority,
       required this.state,
       required this.longitutde,
-      required this.latitude});
-  static IssueDataModel fromMap(
-      Map<String, dynamic> map, String image, String imageLocalUrl) {
+      required this.latitude,
+      required this.issueId});
+  static IssueDataModel fromMap(Map<String, dynamic> map, String image) {
     if (map.isEmpty) {
       print("NOT GOOD");
     }
@@ -26,10 +26,10 @@ class IssueDataModel {
         senderUid: map["senderUid"],
         description: map["description"],
         image: image,
-        imageLocalUrl: imageLocalUrl,
         priority: map["priority"],
         state: map["state"],
         longitutde: map["longitude"],
-        latitude: map["latitude"]);
+        latitude: map["latitude"],
+        issueId: map["issueId"]);
   }
 }

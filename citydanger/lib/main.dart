@@ -1,4 +1,6 @@
 /*=============== Owned packages ===================*/
+import 'package:citydanger/widgets/setup_dialog_ui.dart';
+import 'package:citydanger/widgets/setup_snackbar_ui.dart';
 import 'navi.router.dart';
 import 'locator.dart';
 /*=============== Extern packages ==================*/
@@ -11,6 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupLocator();
+  setupDialogUi();
+  setupSnackbarUi();
   runApp(MyApp());
 }
 

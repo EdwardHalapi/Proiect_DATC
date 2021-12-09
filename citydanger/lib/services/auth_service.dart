@@ -1,4 +1,5 @@
 /*=============== Owned packages ===================*/
+import 'package:citydanger/enums/snackbar_type.dart';
 import 'package:citydanger/locator.dart';
 import 'package:citydanger/services/database.dart';
 import 'package:citydanger/models/user_data_model.dart';
@@ -10,7 +11,7 @@ import 'dart:convert';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final SnackbarService snackBarService = locator<SnackbarService>();
   late UserData _currentUser;
   UserData get currentUser => _currentUser;
   final DatabaseService _databaseService = locator<DatabaseService>();
@@ -50,6 +51,11 @@ class AuthService {
       } else if (error.toString().contains("email-already-in-use")) {
         message = "Email is already in use! Change email or sign in with it!";
       }
+      await snackBarService.showCustomSnackBar(
+          variant: SnackBarType.Error,
+          duration: const Duration(seconds: 3),
+          title: "Authentication Error",
+          message: message);
       return false;
     }
   }
@@ -80,6 +86,11 @@ class AuthService {
       } else if (error.toString().contains("too-many-requests")) {
         message = "Too many requests to sign in with this user";
       }
+      await snackBarService.showCustomSnackBar(
+          variant: SnackBarType.Error,
+          duration: const Duration(seconds: 3),
+          title: "Authentication Error",
+          message: message);
     }
     return false;
   }

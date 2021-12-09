@@ -40,7 +40,7 @@ class DescriptionTextField extends StatelessWidget {
         decoration: InputDecoration.collapsed(
           hintText: 'Description',
           hintStyle: GoogleFonts.montserrat(
-            color: Theme.of(context).backgroundColor.withOpacity(0.6),
+            color:Colors.black,
           ),
         ),
         validator: validator,

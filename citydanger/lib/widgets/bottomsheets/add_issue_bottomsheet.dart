@@ -1,4 +1,5 @@
 /*=============== Owned packages ===================*/
+import 'package:citydanger/enums/snackbar_type.dart';
 import 'package:citydanger/locator.dart';
 import 'package:citydanger/view_models/issue_view_model.dart';
 import 'package:citydanger/widgets/buttons/submit_button.dart';
@@ -8,8 +9,12 @@ import 'package:citydanger/widgets/image_container.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BottomSheetIssue extends StatelessWidget {
+  double? lat;
+  double? longi;
+  BottomSheetIssue({@required this.lat,@required this.longi});
   @override
   Widget build(BuildContext context) {
     String descriptionController = '';
@@ -63,27 +68,22 @@ class BottomSheetIssue extends StatelessWidget {
                 height: 30,
               ),
               BusyButton(
-                text: "Save Changes",
+                text: "Submit Issue",
                 onTap: () async {
-                  // if (model.isBusy == false &&
-                  //     _form.currentState!.validate() &&
-                  //     certificationImage != null &&
-                  //     titleController != '') {
-                  //   await model.addCertification(
-                  //       descriptionController,
-                  //       titleController,
-                  //       startDateController.text,
-                  //       endDateController.text,
-                  //       linkController);
-                  //   model.navigationService.popRepeated(1);
-                  // } else {
-                  //   model.snackbarService.showCustomSnackBar(
-                  //       variant: SnackBarType.Error,
-                  //       duration: Duration(seconds: 3),
-                  //       title: "Warrning",
-                  //       message:
-                  //           "You should add at least a title and an image");
-                  // }
+                  if (model.isBusy == false &&
+                      issueImage != null &&
+                      descriptionController != '') {
+                    await model.uploadIssue(
+                        descriptionController, issueImage, lat, longi);
+                    model.navigationService.popRepeated(1);
+                  } else {
+                    model.snackBarService.showCustomSnackBar(
+                        variant: SnackBarType.Error,
+                        duration: const Duration(seconds: 3),
+                        title: "Warrning",
+                        message:
+                            "You should add at least a title and an image");
+                  }
                 },
                 busy: model.isBusy,
               ),

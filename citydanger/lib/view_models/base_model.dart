@@ -1,6 +1,5 @@
 /*=============== Owned packages ===================*/
 import "package:citydanger/locator.dart";
-import 'package:citydanger/models/marker_data_model.dart';
 import 'package:citydanger/models/user_data_model.dart';
 import 'package:citydanger/services/issue_service.dart';
 import 'package:citydanger/services/media_service.dart';

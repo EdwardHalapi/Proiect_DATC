@@ -11,49 +11,54 @@ class HomePageAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomePageViewModel>.reactive(
       viewModelBuilder: () => HomePageViewModel(),
-      builder: (context, model, child) => Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          leading: IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: () => {_openDrawer()}),
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'City Danger Alert',
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: () async {
+        return false;
+      },
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            leading: IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () => {_openDrawer()}),
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text(
+              'City Danger Alert',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const SizedBox(
-                height: 60,
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                  size: 30,
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                const SizedBox(
+                  height: 60,
                 ),
-                title: const Text(
-                  "Sign Out",
-                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ListTile(
+                  leading: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  title: const Text(
+                    "Sign Out",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                  onTap: () {
+                    model.navigationService.navigateTo(Routes.loginScreen);
+                  },
                 ),
-                onTap: () {
-                  model.navigationService.navigateTo(Routes.loginScreen);
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -37,91 +37,96 @@ class HomePage extends StatelessWidget {
       onModelReady: (homeModel) =>
           homeModel.getIssueList.isEmpty ? homeModel.getmarkers() : null,
       fireOnModelReadyOnce: false,
-      builder: (context, homeModel, child) => Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: () => {_openDrawer()}),
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'City Danger Alert',
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
+      builder: (context, homeModel, child) => WillPopScope(
+        onWillPop: () async {
+        return false;
+      },
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            leading: IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () => {_openDrawer()}),
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text(
+              'City Danger Alert',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName:
-                    Text(homeModel.firstname + " " + homeModel.lasname),
-                accountEmail: Text(homeModel.email),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text(
-                    splitString(homeModel.firstname),
-                    style: TextStyle(
-                        fontSize: 40.0, color: Theme.of(context).canvasColor),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName:
+                      Text(homeModel.firstname + " " + homeModel.lasname),
+                  accountEmail: Text(homeModel.email),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      splitString(homeModel.firstname),
+                      style: TextStyle(
+                          fontSize: 40.0, color: Theme.of(context).canvasColor),
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.logout,
-                  color: Colors.white,
+                ListTile(
+                  leading: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  title: const Text(
+                    "Sign Out",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () async {
+                    homeModel.navigationService.navigateTo(Routes.loginScreen);
+                    await homeModel.disposeViewModel();
+                  },
                 ),
-                title: const Text(
-                  "Sign Out",
-                  style: TextStyle(color: Colors.white),
+                const ListTile(
+                  leading: Icon(
+                    Icons.emoji_events,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "Reward Points",
+                    style: TextStyle(color: Colors.white),
+                  ), //add at data model users points reward
                 ),
-                onTap: () async {
-                  homeModel.navigationService.navigateTo(Routes.loginScreen);
-                  await homeModel.disposeViewModel();
-                },
-              ),
-              const ListTile(
-                leading: Icon(
-                  Icons.emoji_events,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  "Reward Points",
-                  style: TextStyle(color: Colors.white),
-                ), //add at data model users points reward
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        body: GoogleMap(
-          initialCameraPosition: CameraPosition(target: _initialcameraposition),
-          mapType: MapType.normal,
-          onMapCreated: _onMapCreated,
-          myLocationEnabled: true,
-          zoomControlsEnabled: false,
-          markers: homeModel.getMarkers,
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {
-            showBottomSheetIssue(
-                context,
-                BottomSheetIssue(
-                  lat: lat,
-                  longi: longi,
-                ));
-          },
-          child: const Icon(
-            Icons.add_location,
-            color: Colors.white,
+          body: GoogleMap(
+            initialCameraPosition: CameraPosition(target: _initialcameraposition),
+            mapType: MapType.normal,
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+            zoomControlsEnabled: false,
+            markers: homeModel.getMarkers,
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: () {
+              showBottomSheetIssue(
+                  context,
+                  BottomSheetIssue(
+                    lat: lat,
+                    longi: longi,
+                  ));
+            },
+            child: const Icon(
+              Icons.add_location,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

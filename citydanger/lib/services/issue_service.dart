@@ -17,7 +17,7 @@ class IssueService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   List<IssueDataModel> _issueData = [];
   final SnackbarService snackbarService = locator<SnackbarService>();
-  final bool _hasMoreIssues = true;
+  bool _hasMoreIssues = true;
   int issuesLimit = 3;
   DocumentSnapshot? _lastDocument;
   List<IssueDataModel> get issueData => _issueData;
@@ -28,7 +28,7 @@ class IssueService {
     TaskSnapshot snapshot = await _storage
         .ref()
         .child(uid)
-        .child('Certifications')
+        .child('Issues')
         .child(path.basename(imageFile.path))
         .putFile(imageFile);
     if (snapshot.state == TaskState.success) {
@@ -43,7 +43,7 @@ class IssueService {
     File? imagePath,
     int priority,
     String state,
-    double? longitutde,
+    double? longitude,
     double? latitude,
   ) async {
     String? issueImagePath;
@@ -70,12 +70,16 @@ class IssueService {
           'image': issueImagePath,
           'priority': priority,
           'state': state,
-          'longitude': longitutde,
+          'longitude': longitude,
           'latitude': latitude,
           'issueId': allIssueRef.id,
         });
       } catch (error) {
-        print("Error adding document:$error ");
+        snackbarService.showCustomSnackBar(
+          variant: SnackBarType.Error,
+          duration: const Duration(seconds: 3),
+          title: "Error",
+          message: error.toString());
       }
       _issueData.insert(
           0,
@@ -84,10 +88,50 @@ class IssueService {
             'description': description,
             'priority': priority,
             'state': state,
-            'longitude': longitutde,
+            'longitude': longitude,
             'latitude': latitude,
             'issueId': allIssueRef.id,
           }, getDownloadedImageUrl));
+    }
+  }
+
+  Future<void> getAllIssues() async {
+    dynamic data1;
+    QuerySnapshot? response;
+    Query? queryCred;
+    CollectionReference refCertification = _firestore.collection("Issues");
+    queryCred = refCertification.limit(6);
+    String issueDownloadUrl = '';
+
+    if (_lastDocument != null) {
+      queryCred = queryCred
+          .startAfterDocument(_lastDocument as DocumentSnapshot<Object?>);
+    }
+    if (!_hasMoreIssues) {
+      return;
+    } else {
+      response = await queryCred.get();
+      if (response.docs.isNotEmpty) {
+        for (data1 in response.docs) {
+          try {
+            issueDownloadUrl =
+                (await _storage.ref(data1.data()['image']).getDownloadURL())
+                    .toString();
+          } catch (error) {
+            snackbarService.showCustomSnackBar(
+                variant: SnackBarType.Error,
+                duration: const Duration(seconds: 3),
+                title: "Error",
+                message: error.toString());
+          }
+          _issueData
+              .add(IssueDataModel.fromMap(data1.data(), issueDownloadUrl));
+        }
+        _hasMoreIssues = response.docs.length == issuesLimit;
+        _lastDocument = response.docs.last;
+      } else {
+        _hasMoreIssues = false;
+      }
     }
   }
 }

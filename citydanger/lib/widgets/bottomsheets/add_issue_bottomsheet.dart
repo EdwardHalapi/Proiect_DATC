@@ -14,7 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class BottomSheetIssue extends StatelessWidget {
   double? lat;
   double? longi;
-  BottomSheetIssue({@required this.lat,@required this.longi});
+  BottomSheetIssue({Key? key, @required this.lat,@required this.longi}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     String descriptionController = '';
@@ -74,7 +74,7 @@ class BottomSheetIssue extends StatelessWidget {
                       issueImage != null &&
                       descriptionController != '') {
                     await model.uploadIssue(
-                        descriptionController, issueImage, lat, longi);
+                        descriptionController, issueImage, longi, lat);
                     model.navigationService.popRepeated(1);
                   } else {
                     model.snackBarService.showCustomSnackBar(

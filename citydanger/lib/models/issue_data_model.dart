@@ -5,7 +5,7 @@ class IssueDataModel {
   String image;
   int priority;
   String state;
-  double longitutde;
+  double longitude;
   double latitude;
   String issueId;
   
@@ -15,7 +15,7 @@ class IssueDataModel {
       required this.image,
       required this.priority,
       required this.state,
-      required this.longitutde,
+      required this.longitude,
       required this.latitude,
       required this.issueId});
   static IssueDataModel fromMap(Map<String, dynamic> map, String image) {
@@ -28,8 +28,8 @@ class IssueDataModel {
         image: image,
         priority: map["priority"],
         state: map["state"],
-        longitutde: map["longitude"],
         latitude: map["latitude"],
+        longitude: map["longitude"],
         issueId: map["issueId"]);
   }
 }

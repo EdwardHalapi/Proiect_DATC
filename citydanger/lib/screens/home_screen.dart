@@ -1,4 +1,6 @@
 /*=============== Owned packages ===================*/
+import 'package:citydanger/locator.dart';
+import 'package:citydanger/models/issue_data_model.dart';
 import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/home_page_view_model.dart';
 import 'package:citydanger/widgets/bottomsheets/add_issue_bottomsheet.dart';
@@ -30,8 +32,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomePageViewModel>.reactive(
-      viewModelBuilder: () => HomePageViewModel(),
-      builder: (context, model, child) => Scaffold(
+      viewModelBuilder: () => locator<HomePageViewModel>(),
+      disposeViewModel: false,
+      onModelReady: (homeModel) =>
+          homeModel.getIssueList.isEmpty ? homeModel.getmarkers() : null,
+      fireOnModelReadyOnce: false,
+      builder: (context, homeModel, child) => Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
@@ -56,12 +62,13 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text(model.firstname + " " + model.lasname),
-                accountEmail: Text(model.email),
+                accountName:
+                    Text(homeModel.firstname + " " + homeModel.lasname),
+                accountEmail: Text(homeModel.email),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Text(
-                    splitString(model.firstname),
+                    splitString(homeModel.firstname),
                     style: TextStyle(
                         fontSize: 40.0, color: Theme.of(context).canvasColor),
                   ),
@@ -77,8 +84,8 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onTap: () async {
-                  model.navigationService.navigateTo(Routes.loginScreen);
-                  await model.disposeViewModel();
+                  homeModel.navigationService.navigateTo(Routes.loginScreen);
+                  await homeModel.disposeViewModel();
                 },
               ),
               const ListTile(
@@ -100,7 +107,7 @@ class HomePage extends StatelessWidget {
           onMapCreated: _onMapCreated,
           myLocationEnabled: true,
           zoomControlsEnabled: false,
-          markers: model.issueMarkers,
+          markers: homeModel.getMarkers,
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
@@ -111,7 +118,6 @@ class HomePage extends StatelessWidget {
                   lat: lat,
                   longi: longi,
                 ));
-            model.setMarkers(lat, longi);
           },
           child: const Icon(
             Icons.add_location,

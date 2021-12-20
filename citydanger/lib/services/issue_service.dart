@@ -136,9 +136,15 @@ class IssueService {
   }
 
   Future<void> changeState(String uid, String flag, String imageUrl, int index,
-      String userUid, int currentPoints) async {
+      String userUid) async {
     DocumentReference refIssues = _firestore.collection("Issues").doc(uid);
     DocumentReference refUser = _firestore.collection("Users").doc(userUid);
+    var userRewward = await refUser.get();
+    int currentPoints = 0;
+    if (userRewward.exists) {
+      Map<String, dynamic>? data = userRewward.data() as Map<String, dynamic>?;
+      currentPoints = data?["rewardPoints"];
+    }
     int pointsIncrement = 0;
     if (flag == "Validated") {
       pointsIncrement = currentPoints + 10;

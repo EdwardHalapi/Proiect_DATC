@@ -44,7 +44,7 @@ class HomePageViewModel extends BaseModel {
   }
 
   Future<void> showCustomDialog(String issueImageUrl, String description,
-      String issueId, int index) async {
+      String issueId, int index,String userId) async {
     dynamic isOkFlag;
     isOkFlag = await dialogService.showCustomDialog(
       secondaryButtonTitle: 'Unvalidate',
@@ -55,7 +55,7 @@ class HomePageViewModel extends BaseModel {
     );
     print("FLAG:" + isOkFlag.data.toString());
     await issueService.changeState(issueId, isOkFlag.data.toString(),
-        issueImageUrl, index, currentUserUid, rewardPoins);
+        issueImageUrl, index, userId);
     notifyListeners();
   }
 

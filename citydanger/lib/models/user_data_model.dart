@@ -3,19 +3,23 @@ class UserData {
   String email;
   String firstName;
   String lastName;
-  UserData(this.uid, this.email, this.firstName, this.lastName);
+  int rewardPoints;
+  UserData(
+      this.uid, this.email, this.firstName, this.lastName, this.rewardPoints);
 
   UserData.fromUserData(Map<String, dynamic> data)
       : uid = data["Uid"],
         email = data["email"],
         firstName = data["firstName"],
-        lastName = data["lastName"];
+        lastName = data["lastName"],
+        rewardPoints = data["rewardPoints"];
   Map<String, dynamic> get map {
     return {
       "Uid": _uid,
       "email": _email,
       "firstName": _firstName,
       "lastName": _lastName,
+      "rewardPoints": _rewardPoints,
     };
   }
 
@@ -32,9 +36,11 @@ class UserData {
   set _email(_email) => email = _email;
   set _firstName(_firstName) => firstName = _firstName;
   set _lastName(_lastName) => lastName = _lastName;
+  set _rewardPoints(_rewardPoints) => rewardPoints = _rewardPoints;
 
   String get _uid => uid;
   String get _email => email;
   String get _firstName => firstName;
   String get _lastName => lastName;
+  int get _rewardPoints => rewardPoints;
 }

@@ -22,7 +22,7 @@ class IssueViewModel extends BaseModel {
   ) async {
     setBusy(true);
     await issueService.uploadIssue(currentUserUid, description, imagePath, 0,
-        'Validated', longitude, latitude);
+        'Unvalidated', longitude ?? 0.0, latitude ?? 0.0);
     setBusy(false);
     notifyListeners();
   }

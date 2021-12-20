@@ -19,215 +19,220 @@ class SignUpScreen extends StatelessWidget {
 
     return ViewModelBuilder<SignUpViewModel>.reactive(
       viewModelBuilder: () => SignUpViewModel(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => model.navigationService.popRepeated(1),
-          ),
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'City Danger Alert',
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.5,
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: () async {
+        return false;
+      },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => model.navigationService.popRepeated(1),
+            ),
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text(
+              'City Danger Alert',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 100,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(right: 275),
-                  child: Text(
-                    "Sign Up",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 275),
+                    child: Text(
+                      "Sign Up",
+                      style: GoogleFonts.montserrat(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(left: 25, right: 25),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextFormField(
-                    obscureText: false,
-                    maxLength: 100,
-                    maxLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(
-                        left: 15,
-                      ),
-                      hintStyle: GoogleFonts.montserrat(
-                        fontSize: 15.5,
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                    onChanged: (value) => emailController = value,
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(left: 25, right: 25),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextFormField(
-                    obscureText: true,
-                    maxLength: 100,
-                    maxLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(
-                        left: 15,
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      obscureText: false,
+                      maxLength: 100,
+                      maxLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 15.5,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                      hintStyle: GoogleFonts.montserrat(
-                        fontSize: 15.5,
-                        color: Colors.grey[500],
-                      ),
+                      onChanged: (value) => emailController = value,
                     ),
-                    onChanged: (value) => passwordController = value,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(left: 25, right: 25),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextFormField(
-                    obscureText: true,
-                    maxLength: 100,
-                    maxLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(
-                        left: 15,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      obscureText: true,
+                      maxLength: 100,
+                      maxLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 15.5,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                      hintStyle: GoogleFonts.montserrat(
-                        fontSize: 15.5,
-                        color: Colors.grey[500],
-                      ),
+                      onChanged: (value) => passwordController = value,
                     ),
-                    onChanged: (value) => confirmPasswordController = value,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(left: 25, right: 25),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextFormField(
-                    obscureText: false,
-                    maxLength: 100,
-                    maxLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      hintText: "First Name",
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(
-                        left: 15,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      obscureText: true,
+                      maxLength: 100,
+                      maxLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: "Confirm Password",
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 15.5,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                      hintStyle: GoogleFonts.montserrat(
-                        fontSize: 15.5,
-                        color: Colors.grey[500],
-                      ),
+                      onChanged: (value) => confirmPasswordController = value,
                     ),
-                    onChanged: (value) => firstNameController = value,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 50,
-                  margin: const EdgeInsets.only(left: 25, right: 25),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextFormField(
-                    obscureText: false,
-                    maxLength: 100,
-                    maxLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      hintText: "Last Name",
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.only(
-                        left: 15,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      obscureText: false,
+                      maxLength: 100,
+                      maxLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: "First Name",
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 15.5,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                      hintStyle: GoogleFonts.montserrat(
-                        fontSize: 15.5,
-                        color: Colors.grey[500],
-                      ),
+                      onChanged: (value) => firstNameController = value,
                     ),
-                    onChanged: (value) => lastNameController = value,
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                BusyButton(
-                  text: "SignUp",
-                  onTap: () async {
-                    if (model.isBusy == false) {
-                      await model.signUp(emailController, passwordController,
-                          firstNameController, lastNameController);
-                    }
-                  },
-                  busy: model.isBusy,
-                ),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      obscureText: false,
+                      maxLength: 100,
+                      maxLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: "Last Name",
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 15.5,
+                          color: Colors.grey[500],
+                        ),
+                      ),
+                      onChanged: (value) => lastNameController = value,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  BusyButton(
+                    text: "SignUp",
+                    onTap: () async {
+                      if (model.isBusy == false) {
+                        await model.signUp(emailController, passwordController,
+                            firstNameController, lastNameController, 0);
+                      }
+                    },
+                    busy: model.isBusy,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
             ),
           ),
         ),

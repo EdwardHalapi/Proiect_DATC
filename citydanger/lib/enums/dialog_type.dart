@@ -1,1 +1,1 @@
-enum DialogType { Header, HeaderOk, DeleteCertification }
+enum DialogType { Header, HeaderOk, ShowIssueAdmin,ShowIssueUser }

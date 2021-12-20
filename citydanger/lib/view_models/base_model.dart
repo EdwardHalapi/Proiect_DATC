@@ -28,4 +28,5 @@ class BaseModel extends BaseViewModel {
   String get email => getCurrentUser().email;
   String get firstname => getCurrentUser().firstName;
   String get lasname => getCurrentUser().lastName;
+  int get rewardPoins => getCurrentUser().rewardPoints;
 }

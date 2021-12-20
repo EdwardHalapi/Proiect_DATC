@@ -39,8 +39,8 @@ class HomePage extends StatelessWidget {
       fireOnModelReadyOnce: false,
       builder: (context, homeModel, child) => WillPopScope(
         onWillPop: () async {
-        return false;
-      },
+          return false;
+        },
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
@@ -92,13 +92,13 @@ class HomePage extends StatelessWidget {
                     await homeModel.disposeViewModel();
                   },
                 ),
-                const ListTile(
-                  leading: Icon(
+                ListTile(
+                  leading: const Icon(
                     Icons.emoji_events,
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Reward Points",
+                    "Reward Points: " + homeModel.rewardPoins.toString(),
                     style: TextStyle(color: Colors.white),
                   ), //add at data model users points reward
                 ),
@@ -106,7 +106,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           body: GoogleMap(
-            initialCameraPosition: CameraPosition(target: _initialcameraposition),
+            initialCameraPosition:
+                CameraPosition(target: _initialcameraposition),
             mapType: MapType.normal,
             onMapCreated: _onMapCreated,
             myLocationEnabled: true,

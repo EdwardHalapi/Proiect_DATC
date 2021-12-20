@@ -6,12 +6,12 @@ import 'package:citydanger/view_models/base_model.dart';
 
 class SignUpViewModel extends BaseModel {
   Future<void> signUp(
-      String email, String password, String firstname, String lastname) async {
+      String email, String password, String firstname, String lastname, int rewardPoints) async {
     bool result = false;
 
     setBusy(true);
     result = await authService.registerWithEmailAndPassword(
-        email, password, firstname, lastname);
+        email, password, firstname, lastname,rewardPoints);
     setBusy(false);
 
     if (result == true) {

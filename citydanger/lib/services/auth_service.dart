@@ -28,7 +28,7 @@ class AuthService {
   }
 
   Future<bool> registerWithEmailAndPassword(
-      String email, String password, String firstname, String lastname) async {
+      String email, String password, String firstname, String lastname, int rewardPoints) async {
     User? user;
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -36,7 +36,7 @@ class AuthService {
 
       if (result.user != null) {
         user = result.user as User;
-        _currentUser = UserData(user.uid, email, firstname, lastname);
+        _currentUser = UserData(user.uid, email, firstname, lastname, rewardPoints);
 
         await _databaseService.updateUserData(_currentUser.map);
       }

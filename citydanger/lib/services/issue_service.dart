@@ -43,7 +43,7 @@ class IssueService {
     File? imagePath,
     int priority,
     String state,
-    double? longitutde,
+    double? longitude,
     double? latitude,
   ) async {
     String? issueImagePath;
@@ -70,12 +70,16 @@ class IssueService {
           'image': issueImagePath,
           'priority': priority,
           'state': state,
-          'longitude': longitutde,
+          'longitude': longitude,
           'latitude': latitude,
           'issueId': allIssueRef.id,
         });
       } catch (error) {
-        print("Error adding document:$error ");
+        snackbarService.showCustomSnackBar(
+            variant: SnackBarType.Error,
+            duration: const Duration(seconds: 3),
+            title: "Error",
+            message: error.toString());
       }
       _issueData.insert(
           0,
@@ -84,7 +88,7 @@ class IssueService {
             'description': description,
             'priority': priority,
             'state': state,
-            'longitude': longitutde,
+            'longitude': longitude,
             'latitude': latitude,
             'issueId': allIssueRef.id,
           }, getDownloadedImageUrl));
@@ -95,8 +99,8 @@ class IssueService {
     dynamic data1;
     QuerySnapshot? response;
     Query? queryCred;
-    CollectionReference refCertification = _firestore.collection("Issues");
-    queryCred = refCertification.limit(6);
+    CollectionReference refIssues = _firestore.collection("Issues");
+    queryCred = refIssues.limit(6);
     String issueDownloadUrl = '';
 
     if (_lastDocument != null) {
@@ -128,6 +132,53 @@ class IssueService {
       } else {
         _hasMoreIssues = false;
       }
+    }
+  }
+
+  Future<void> changeState(String uid, String flag, String imageUrl, int index,
+      String userUid) async {
+    DocumentReference refIssues = _firestore.collection("Issues").doc(uid);
+    DocumentReference refUser = _firestore.collection("Users").doc(userUid);
+    var userRewward = await refUser.get();
+    int currentPoints = 0;
+    if (userRewward.exists) {
+      Map<String, dynamic>? data = userRewward.data() as Map<String, dynamic>?;
+      currentPoints = data?["rewardPoints"];
+    }
+    int pointsIncrement = 0;
+    if (flag == "Validated") {
+      pointsIncrement = currentPoints + 10;
+      refIssues.update({'state': 'Validated'});
+      refUser.update({'rewardPoints': pointsIncrement});
+    } else if (flag == "Unvalidated") {
+      await deleteIssue(uid, imageUrl, index);
+    }
+  }
+
+  Future<void> deleteIssueImage(String imageUrl) async {
+    await _storage.refFromURL(imageUrl).delete();
+  }
+
+  Future<void> deleteIssue(String uid, String imageUrl, int index) async {
+    DocumentReference certificationRef =
+        _firestore.collection("Issues").doc(uid);
+    try {
+      await certificationRef.delete();
+      await deleteIssueImage(imageUrl);
+      _issueData.removeAt(index);
+      snackbarService.showCustomSnackBar(
+        message: "Issue succesfully deleted",
+        variant: SnackBarType.Success,
+        duration: const Duration(seconds: 3),
+        title: "Succes",
+      );
+    } catch (error) {
+      snackbarService.showCustomSnackBar(
+          variant: SnackBarType.Error,
+          duration: const Duration(seconds: 3),
+          title: "Error",
+          message:
+              "Error occured when you tried delete an issue. Please try again!");
     }
   }
 }

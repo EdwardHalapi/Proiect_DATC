@@ -18,17 +18,20 @@ class HomePageViewModel extends BaseModel {
   Future<Set<Marker>> getmarkers() async {
     await getIssues();
     IssueDataModel issue;
+    Marker marker;
     for (issue in getIssueList) {
       if (issue.state == "Validated") {
         markers.add(
           Marker(
-              markerId:
-                  MarkerId(LatLng(issue.latitude, issue.longitude).toString()),
-              position: LatLng(issue.latitude, issue.longitude),
-              icon: BitmapDescriptor.defaultMarker,
-              onTap: () async {
-                await showCustomDialogMarker(issue.image, issue.description);
-              }),
+            markerId:
+                MarkerId(LatLng(issue.latitude, issue.longitude).toString()),
+            position: LatLng(issue.latitude, issue.longitude),
+            icon: BitmapDescriptor.defaultMarkerWithHue(180.0),
+            infoWindow: InfoWindow(title: issue.description),
+            // onTap: () async {
+            //   await showCustomDialogMarker(issue.image, issue.description);
+            // },
+          ),
         );
       }
     }
@@ -44,7 +47,7 @@ class HomePageViewModel extends BaseModel {
   }
 
   Future<void> showCustomDialog(String issueImageUrl, String description,
-      String issueId, int index,String userId) async {
+      String issueId, int index, String userId) async {
     dynamic isOkFlag;
     isOkFlag = await dialogService.showCustomDialog(
       secondaryButtonTitle: 'Unvalidate',
@@ -54,8 +57,8 @@ class HomePageViewModel extends BaseModel {
       imageUrl: issueImageUrl,
     );
     print("FLAG:" + isOkFlag.data.toString());
-    await issueService.changeState(issueId, isOkFlag.data.toString(),
-        issueImageUrl, index, userId);
+    await issueService.changeState(
+        issueId, isOkFlag.data.toString(), issueImageUrl, index, userId);
     notifyListeners();
   }
 

@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #testing
+  mockito: ^5.0.17
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,9 +71,6 @@ dev_dependencies:
   google_maps_flutter: ^2.1.1
   location: ^4.3.0
   location_web: ^3.1.1
-
-#testing
-mockito:
 
 flutter:
 

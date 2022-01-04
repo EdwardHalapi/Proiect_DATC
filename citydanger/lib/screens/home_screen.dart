@@ -1,6 +1,5 @@
 /*=============== Owned packages ===================*/
 import 'package:citydanger/locator.dart';
-import 'package:citydanger/models/issue_data_model.dart';
 import 'package:citydanger/navi.router.dart';
 import 'package:citydanger/view_models/home_page_view_model.dart';
 import 'package:citydanger/widgets/bottomsheets/add_issue_bottomsheet.dart';

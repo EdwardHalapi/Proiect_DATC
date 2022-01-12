@@ -19,8 +19,8 @@ class LoginScreen extends StatelessWidget {
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => WillPopScope(
         onWillPop: () async {
-        return false;
-      },
+          return false;
+        },
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -152,7 +152,8 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          model.navigationService.navigateTo(Routes.signUpScreen);
+                          model.navigationService
+                              .navigateTo(Routes.signUpScreen);
                         },
                       ),
                       GestureDetector(

@@ -131,7 +131,8 @@ class HomePageAdmin extends StatelessWidget {
                             homeModel.getIssueList[index].image,
                             homeModel.getIssueList[index].description,
                             homeModel.getIssueList[index].issueId,
-                            index,homeModel.getIssueList[index].senderUid);
+                            index,
+                            homeModel.getIssueList[index].senderUid);
                       }),
                     ),
                   ),

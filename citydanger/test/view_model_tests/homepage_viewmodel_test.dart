@@ -1,9 +1,5 @@
-import 'package:citydanger/enums/dialog_type.dart';
-import 'package:citydanger/services/auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:citydanger/navi.router.dart';
-import 'package:stacked_services/stacked_services.dart';
 import '../setup/test_helpers.dart';
 import '../setup/test_helpers.mocks.dart';
 import 'package:citydanger/view_models/home_page_view_model.dart';
